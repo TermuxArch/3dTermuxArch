@@ -4,8 +4,10 @@
 
 ##### -r--r--r-- [setupTermuxArch](https://raw.githubusercontent.com/TermuxArch/TermuxArch/master/setupTermuxArch)
 ##### -rwxrwxrwx [setupTermuxArch](https://TermuxArch.github.io/TermuxArch/setupTermuxArch)
+
 [ghcup.music.mp4](https://raw.githubusercontent.com/TermuxArch/3dTermuxArch/master/mono/ghcup.music.mp4)
-[ghcup.music.mp4](https://github.com/TermuxArch/3dTermuxArch/blob/master/mono/ghcup.music.mp4)
+
+[ghcup.music.mp4](https://TermuxArch.github.io/3dTermuxArch/mono/ghcup.music.mp4)
 
 <!-- TermuxArch/3dTermuxArch README.md EOF -->
 
