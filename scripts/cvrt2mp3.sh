@@ -2,7 +2,7 @@
 # Copyright 2022 (c) by SDRausty, all rights reserved, see LICENSE
 # Converts video and music files into mp3 audio format.
 ################################################################################
-set -eu
+set -eux
 [ -n "${1:-}" ] || { printf '%s\n' "Please enter a file name;  Exiting..." ; exit 69 ; }
 if [ ! -d audio/steo ] || [ ! -d audio/mono ] || [ ! -d audio/mono22050 ] || [ ! -d audio/mono11025 ]
 then
@@ -10,16 +10,18 @@ mkdir -p audio/steo audio/mono audio/mono22050 audio/mono11025
 fi
 _PRNTMESG_ () { printf '%s\n' "Signal $1 received;  Continuing..." ; }
 # create mp3 file name based on input file name
-FILE="$(printf '%s' "$1" | tr ' ' '-' )"
-FILE="$(printf '%s' "$FILE" | sed 's/(//g' )"
-FILE="$(printf '%s' "$FILE" | sed 's/)//g' )"
-FILE="$(printf '%s' "$FILE" | sed 's/\[//g' )"
-FILE="$(printf '%s' "$FILE" | sed 's/\]//g' )"
-FILE="$(printf '%s' "$FILE" | sed 's/{//g' )"
-FILE="$(printf '%s' "$FILE" | sed 's/}//g' )"
+FILE="$(printf '%s' "$1" | tr "'" '-')"
+FILE="$(printf '%s' "$FILE" | tr ' ' '-' )"
+FILE="$(printf '%s' "$FILE" | tr '(' '-' )"
+FILE="$(printf '%s' "$FILE" | tr ')' '-' )"
+FILE="$(printf '%s' "$FILE" | tr "[" '-')"
+FILE="$(printf '%s' "$FILE" | tr ']' '-' )"
+FILE="$(printf '%s' "$FILE" | tr '{' '-' )"
+FILE="$(printf '%s' "$FILE" | tr '}' '-' )"
+FILE="$(printf '%s' "$FILE" | tr '_' '-' )"
 FILE="$(printf '%s' "$FILE" | sed 's/official//i' )" # case insensitive
+FILE="$(printf '%s' "$FILE" | sed 's/please-read-description//i' )" # case insensitive
 FILE="$(printf '%s' "$FILE" | sed 's/video//i' )" # case insensitive
-FILE="$(printf '%s' "$FILE" | sed 's/_/-/g' )"
 FILE="$(printf '%s' "$FILE" | sed 's/--/-/g' )"
 FILE="$(printf '%s' "$FILE" | sed 's/--/-/g' )"
 ffmpeg -i "$1" -vn -ac 2 -ab 192k -f mp3 audio/steo/"${FILE%.*}".mp3 || _PRNTMESG_ 202
