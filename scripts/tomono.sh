@@ -1,15 +1,15 @@
 #!/usr/bin/env sh
 # Copyright 2022 (c) by SDRausty, all rights reserved, see LICENSE
-# ffmpeg -i "$1" -vn -ar 11025 -ac 2 -ab 192k -f mp3 m11025.mp3
+# Converts video and music files into mp3 audio format.
 ################################################################################
-set -eux
+set -eu
 [ -n "${1:-}" ] || { printf '%s\n' "Please enter a file name;  Exiting..." ; exit 69 ; }
 if [ ! -d audio/steo ] || [ ! -d audio/mono ] || [ ! -d audio/mono22050 ] || [ ! -d audio/mono11025 ]
 then
 mkdir -p audio/steo audio/mono audio/mono22050 audio/mono11025
 fi
 _PRNTMESG_ () { printf '%s\n' "Signal $1 received;  Continuing..." ; }
-# create file name based on input file nane
+# create mp3 file name based on input file name
 FILE="$(printf '%s' "$1" | tr ' ' '-' )"
 FILE="$(printf '%s' "$FILE" | sed 's/(//g' )"
 FILE="$(printf '%s' "$FILE" | sed 's/)//g' )"
