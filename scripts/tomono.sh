@@ -26,4 +26,4 @@ ffmpeg -i "$1" -vn -ac 2 -ab 192k -f mp3 audio/steo/"${FILE%.*}".mp3 || _PRNTMES
 ffmpeg -i audio/steo/"${FILE%.*}".mp3 -c:v copy -ac 1 audio/mono/"${FILE%.*}"-mono.mp3 || _PRNTMESG_ 204
 ffmpeg -i audio/mono/"${FILE%.*}"-mono.mp3 -vn -ar 22050 audio/mono22050/"${FILE%.*}"-m22050.mp3 || _PRNTMESG_ 206
 ffmpeg -i audio/mono/"${FILE%.*}"-mono.mp3 -vn -ar 11025 audio/mono11025/"${FILE%.*}"-m11025.mp3 || _PRNTMESG_ 208
-# TermuxArch/3dTermuxArch/scripts/tomono.sh _MKDIRS_() { mkdir -p {
+# TermuxArch/3dTermuxArch/scripts/tomono.sh EF
