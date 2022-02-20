@@ -26,7 +26,7 @@ FILE="$(printf '%s' "$FILE" | sed 's/video//i' )" # case insensitive
 FILE="$(printf '%s' "$FILE" | sed 's/--/-/g' )"
 FILE="$(printf '%s' "$FILE" | sed 's/--/-/g' )"
 FILE="$(printf '%s' "$FILE" | sed 's/--/-/g' )"
-FILE="$(printf '%s' "$FILE" | sed 's/.//g' )"
+# FILE="$(printf '%s' "$FILE" | sed 's/.//g' )"
 ffmpeg -i "$1" -vn -ac 2 -ab 192k -f mp3 audio/stereo/"${FILE%.*}".mp3 || { { pc ffmpeg || pci ffmpeg ; } && ffmpeg -i "$1" -vn -ac 2 -ab 192k -f mp3 audio/stereo/"${FILE%.*}".mp3 ; } || _PRNTMESG_ 202
 ffmpeg -i audio/stereo/"${FILE%.*}".mp3 -c:v copy -ac 1 audio/mono/"${FILE%.*}"-mono.mp3 || _PRNTMESG_ 204
 ffmpeg -i audio/mono/"${FILE%.*}"-mono.mp3 -vn -ar 22050 audio/mono22050/"${FILE%.*}"-m22050.mp3 || _PRNTMESG_ 206
