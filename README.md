@@ -7,6 +7,4 @@
 
 <!-- [ghcup.music.mp3](https://raw.githubusercontent.com/TermuxArch/3dTermuxArch/master/mono22050/ghcup.music.mp3) -->
 
-[ghcup.music.mp3](https://TermuxArch.github.io/3dTermuxArch/mono22050/ghcup.music.mp3)
-
 <!-- TermuxArch/3dTermuxArch README.md FE -->
