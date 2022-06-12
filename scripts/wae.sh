@@ -8,7 +8,7 @@ am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.a
 _PLAYAUDIO_(){
 while true
 do
-printf '%s\n' "Playing $ARG1..."
+printf '%s\n' "Playing '${ARG1##*/}'..."
 play-audio "$ARG1"
 SHFNNT="$(shuf -n 1 -i $ARG2-$ARG3)"
 printf '%s\n' "Snoozing for ${SHFNNT:-24} seconds..."
