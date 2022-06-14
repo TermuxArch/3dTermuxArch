@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-set -u
+set -eu
 ARG0="${0##*/}"
 ARG1="${1:-no file name was provided}"
 ARG2="${2:-16}"
@@ -9,7 +9,7 @@ _PLAYAUDIO_(){
 while true
 do
 printf '%s\n' "Playing '${ARG1##*/}'..."
-play-audio "$ARG1"
+play-audio "$ARG1" || printf '%s\n' "${ARG0^^} SIGNAL play-audio $ARG1;  Continuing..."
 SHFNNT="$(shuf -n 1 -i $ARG2-$ARG3)"
 printf '%s\n' "Snoozing for ${SHFNNT:-24} seconds..."
 sleep "${SHFNNT:-24}"
