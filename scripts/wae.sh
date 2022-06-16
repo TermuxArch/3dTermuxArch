@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -eu
 ARG0="${0##*/}"
-ARG1="${1:-no file name was provided}"
+ARG1="${1:-NO FILE NAME WAS GIVEN}"
 ARG2="${2:-16}"
 ARG3="${3:-256}"
 am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService || printf '%s\n' "${ARG0^^} SIGNAL am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService;  Continuing..."
