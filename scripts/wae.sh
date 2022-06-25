@@ -12,6 +12,8 @@ ARG6="${6:-NO FILE NAME WAS GIVEN}"
 ARG7="${7:-NO FILE NAME WAS GIVEN}"
 ARG8="${8:-NO FILE NAME WAS GIVEN}"
 ARG9="${9:-NO FILE NAME WAS GIVEN}"
+[[ "$ARG2" =~ ^[0-9]+$ ]] || { printf '%s\n' "${ARG0^^} SIGNAL the second argument must be a number;  EXITING..." && exit ; }
+[[ "$ARG3" =~ ^[0-9]+$ ]] || { printf '%s\n' "${ARG0^^} SIGNAL the third argument must be a number;  EXITING..." && exit ; }
 _DPLY_(){
 printf '%s\n' "Playing '${TRCK##*/}'..."
 play-audio "$TRCK" || printf '%s\n' "${ARG0^^} SIGNAL play-audio $TRCK;  CONTINUING..."
@@ -25,7 +27,7 @@ while true
 do
 for TRCK in "$ARG1" "$ARG4" "$ARG5" "$ARG6" "$ARG7" "$ARG8" "$ARG9"
 do
-[[ "$TRCK"  == "NO FILE NAME WAS GIVEN" ]] || _DPLY_ "$TRCK"
+{ [[ "$TRCK"  == "NO FILE NAME WAS GIVEN" ]] && printf '%s\n' "${ARG0^^} SIGNAL NO FILE NAME WAS GIVEN;  EXITING..." && exit ; } || _DPLY_ "$TRCK"
 done
 done
 }
