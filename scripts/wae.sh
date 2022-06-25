@@ -1,1 +1,1 @@
-wae.bash
+./wae.bash
