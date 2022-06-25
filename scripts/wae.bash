@@ -28,7 +28,7 @@ while true
 do
 for TRCK in "$ARG1" "$ARG4" "$ARG5" "$ARG6" "$ARG7" "$ARG8" "$ARG9"
 do
-[[ "$TRCK" == "*NO FILE NAME WAS GIVEN*" ]] || _DPLY_ "$TRCK"
+[[ "$TRCK"  == "NO FILE NAME WAS GIVEN" ]] || _DPLY_ "$TRCK"
 done
 done
 }
