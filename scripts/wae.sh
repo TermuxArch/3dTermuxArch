@@ -32,5 +32,5 @@ done
 done
 }
 [ -n "${1:-}" ] && { { [[ "${1//-}" = [Cc] ]] || [[ "${1//-}" = [Cc][Aa] ]] || [[ "${1//-}" = [Cc][Aa][Tt] ]] || [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] || [[ "${1//-}" = [Vv] ]]  || [[ "${1//-}" = [Vv][Ee] ]]  || [[ "${1//-}" = [Vv][Ee][Rr] ]]  || [[ "${1//-}" = [Vv][Ee][Rr][Ss] ]]  || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii] ]]  || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii][Oo] ]]  || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii][Oo][Nn] ]]  ; } && { printf '\e[0;32m%s\n' "${ARG0^^} INFO cat $0;  CONTINUING..." && cat "$0" ; exit ; } ; }
-_PLYD_ "$@"
+{ [[ "$ARG1"  == "NO FILE NAME WAS GIVEN" ]] && printf '%s\n' "${ARG0^^} SIGNAL NO FILE NAME WAS GIVEN;  EXITING..." && exit ; } || _PLYD_ "$@"
 # wae EF
