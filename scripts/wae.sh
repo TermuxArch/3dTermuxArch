@@ -12,8 +12,8 @@ ARG6="${6:-NO FILE NAME WAS GIVEN}"
 ARG7="${7:-NO FILE NAME WAS GIVEN}"
 ARG8="${8:-NO FILE NAME WAS GIVEN}"
 ARG9="${9:-NO FILE NAME WAS GIVEN}"
-[[ "$ARG2" =~ ^[0-9]+$ ]] || { printf '%s\n' "${ARG0^^} INFO the second argument must be a number;  EXITING..." && exit ; }
-[[ "$ARG3" =~ ^[0-9]+$ ]] || { printf '%s\n' "${ARG0^^} INFO the third argument must be a number;  EXITING..." && exit ; }
+[[ "$ARG2" =~ ^[0-9]+$ ]] || { printf '%s\n' "${ARG0^^} INFO the second argument is reserved for the minimum snooze time and must be a number;  EXITING..." && exit ; }
+[[ "$ARG3" =~ ^[0-9]+$ ]] || { printf '%s\n' "${ARG0^^} INFO the third argument is reserved for the maximum snooze time and must be a number;  EXITING..." && exit ; }
 [[ "$ARG2" -lt "$ARG3" ]] || { printf '%s\n' "${ARG0^^} INFO the third argument must be less than the second argument;  EXITING..." && exit ; }
 _DPLY_(){
 printf '%s\n' "Playing '${TRCK##*/}'..."
