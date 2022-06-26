@@ -14,7 +14,7 @@ ARG8="${8:-NO FILE NAME WAS GIVEN}"
 ARG9="${9:-NO FILE NAME WAS GIVEN}"
 [[ "$ARG2" =~ ^[0-9]+$ ]] || { printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${ARG0^^} INFO the second argument is reserved for the minimum snooze time and must be a number;  " && exit ; }
 [[ "$ARG3" =~ ^[0-9]+$ ]] || { printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${ARG0^^} INFO the third argument is reserved for the maximum snooze time and must be a number;  " && exit ; }
-[[ "$ARG2" -lt "$ARG3" ]] || { printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${ARG0^^} INFO the third argument must be less than the second argument;  " && exit ; }
+[[ "$ARG3" -gt "$ARG2" ]] || { printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${ARG0^^} INFO the third argument must be more than the second argument;  " && exit ; }
 _DPLY_(){
 printf '%s\n' "Playing '${TRCK##*/}'..."
 play-audio "$TRCK" || printf '%s\e[0;32mCONTINUING...\e[0m\n' "${ARG0^^} SIGNAL play-audio $TRCK;  "
