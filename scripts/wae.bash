@@ -23,7 +23,8 @@ printf '\e[0;32m%s\e[0m\n' "${ARG0^^} INFO snoozing for ${SHFNNT:-24} seconds...
 sleep "${SHFNNT:-24}"
 }
 _PLYD_(){
-{ am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService 1>/dev/null && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${ARG0^^} INFO am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService;  " ; } || printf '\e[0;32m%s\e[0;32mCONTINUING...\e[0m\n' "${ARG0^^} SIGNAL am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService;  "
+TMPCMD="am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService 1>/dev/null"
+{ $TMPCMD && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${ARG0^^} INFO $TMPCMD;  " ; } || printf '\e[0;32m%s\e[0;32mCONTINUING...\e[0m\n' "${ARG0^^} SIGNAL $TMPCMD;  "
 while true
 do
 for TRCK in "$ARG1" "$ARG4" "$ARG5" "$ARG6" "$ARG7" "$ARG8" "$ARG9"
