@@ -27,7 +27,7 @@ while :
 do
 for TRCK in "${SNGS[@]}"
 do
-_DPLY_ "$TRCK"
+_DPLY_
 done
 done
 }
