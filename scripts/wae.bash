@@ -10,8 +10,9 @@ do
 done
 ARG2="${ARG2:-32}"
 ARG3="${ARG3:-512}"
-[[ "$ARG3" -gt "$ARG2" ]] || { printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${ARG0^^} INFO the first numerical argument provided must be less than the second numerical argument given;  " && exit ; }
+[[ "$ARG3" -gt "$ARG2" ]] || { printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${ARG0^^} INFO the first numerical argument must be less than the second numerical argument provided;  " && exit ; }
 _DPLY_(){
+read -n 1 -s -t 0.01 INPUT && { [[ $INPUT = [Aa] ]] || [[ $INPUT = [Ee] ]] || [[ $INPUT = [Ss] ]] || [[ $INPUT = [Qq] ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${ARG0^^} INFO keypress $INPUT was detected;  " && exit
 printf '%s\n' "Playing '${TRCK##*/}'..."
 play-audio "$TRCK" || printf '%s\e[0;32mCONTINUING...\e[0m\n' "${ARG0^^} SIGNAL play-audio $TRCK;  "
 SHFNNT="$(shuf -n 1 -i "$ARG2"-"$ARG3")"
@@ -21,7 +22,7 @@ sleep "${SHFNNT:-24}"
 _PLYD_(){
 TMPCMD="am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService 1>/dev/null"
 { $TMPCMD && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${ARG0^^} INFO $TMPCMD;  " ; } || printf '\e[0;32m%s\e[0;32mCONTINUING...\e[0m\n' "${ARG0^^} SIGNAL $TMPCMD;  "
-until { read -s -n 1 -t 0.01 INPUT && { [[ $INPUT = [Ee] ]] || [[ $INPUT = [Qq] ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${ARG0^^} INFO keypress $INPUT given;  " && break ; }
+while :
 do
 for TRCK in ${SNGS[@]}
 do
