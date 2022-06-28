@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-## command wait an event derives from grey music cognition
-## usage: 'wae music.mp3 16 256'
 ## Copyright 2022 by TermuxArch. All rights reserved, please see LICENSE 🌎 🌍 🌏
+## Command wait an event derives from grey music cognition.
+## USAGE: 'wae file.mp3 16 256'
 ##############################################################################
 set -eu
 ARG0="${0##*/}"
 [ "${1:-}" != "" ] && { { [[ "${1//-}" = [Cc] ]] || [[ "${1//-}" = [Cc][Aa] ]] || [[ "${1//-}" = [Cc][Aa][Tt] ]] || [[ "${1//-}" = [Vv] ]] || [[ "${1//-}" = [Vv][Ee] ]] || [[ "${1//-}" = [Vv][Ee][Rr] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii][Oo] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii][Oo][Nn] ]] ; } && { printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${ARG0^^} INFO cat $0;" && cat "$0" ; exit ; } ; }
-[ "${1:-}" != "" ] && { { [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] ; } && { TMPCMD="$(sed -n '2,3p' $0 | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${ARG0^^} INFO $TMPCMD;" ; exit ; } ; }
+[ "${1:-}" != "" ] && { { [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] ; } && { TMPCMD="$(sed -n '2,4p' $0 | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${ARG0^^} INFO $TMPCMD;" ; exit ; } ; }
 for TMPVRBL in "$@"
 do
 [[ "$TMPVRBL" =~ ^[0-9]+$ ]] || SNGS+=("$TMPVRBL" )
