@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 ## Copyright 2022 by TermuxArch, all rights reserved, please see LICENSE 🌎 🌍 🌏
 ## The command 'wait an event' is derived from the theories of grey music cognition and music as medicine.  Termux group discussions circa 2018 at Termux community channels were very helpful before the SDRausty account was banned by Termux curators who are doing the work of open source code squatters.  Please reference https://github.com/SDRausty/builtAPKs/issues/2 for more information about open source code squatting.
-##
+
 ## snooze time = time between each play in seconds
-##
+
 ## SYNTAX: 'wae [audio files] [audio files] [min snooze time] [max snooze time]'
 ## USAGE: 'wae *.mp3 path/file.mp4 16 256' plays sound files and waits from 16 to 256 seconds between each play.  Multiple Termux sessions can be used in order to run commands 'wae arguments' simultainiously and to switch seamlessly between plays.
 ##############################################################################
