@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-## Copyright 2022 by TermuxArch. All rights reserved, please see LICENSE 🌎 🌍 🌏
-## Command wait an event derives from the theory of grey music cognition.
-## SYNTAX: 'wae [filename] [minsnoozetime] [maxsnoosetime]'
+## Copyright 2022 by TermuxArch, all rights reserved, please see LICENSE 🌎 🌍 🌏
+## Command 'wait an event' derives from the theories of grey music cognition and music as medicine:
+## SYNTAX: 'wae [filename] [min snooze time] [max snoose time]'
 ## USAGE: 'wae *.mp3 16 256'
 ##############################################################################
 set -eu
