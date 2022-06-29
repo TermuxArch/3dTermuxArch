@@ -5,12 +5,13 @@
 ## snooze time = time between each play in seconds
 
 ## SYNTAX: 'wae [audio files] [audio files] [min snooze time] [max snooze time]'
+
 ## USAGE: 'wae *.mp3 path/file.mp4 16 256' plays sound files and waits from 16 to 256 seconds between each play.  Multiple Termux sessions can be used in order to run commands 'wae arguments' simultaneously and to switch seamlessly between plays.
 ##############################################################################
 set -eu
 ARG0="${0##*/}"
 [ "${1:-}" != "" ] && { { [[ "${1//-}" = [Cc] ]] || [[ "${1//-}" = [Cc][Aa] ]] || [[ "${1//-}" = [Cc][Aa][Tt] ]] || [[ "${1//-}" = [Vv] ]] || [[ "${1//-}" = [Vv][Ee] ]] || [[ "${1//-}" = [Vv][Ee][Rr] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii][Oo] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii][Oo][Nn] ]] ; } && { printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${ARG0^^} INFO cat $0;" && cat "$0" ; exit ; } ; }
-[ "${1:-}" != "" ] && { { [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] ; } && { TMPCMD="$(sed -n '2,8p' $0 | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${ARG0^^} HELP $TMPCMD" ; exit ; } ; }
+[ "${1:-}" != "" ] && { { [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] ; } && { TMPCMD="$(sed -n '2,9p' $0 | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "${ARG0^^} HELP $TMPCMD" ; exit ; } ; }
 for TMPVRBL in "$@"
 do
 [[ "$TMPVRBL" =~ ^[0-9]+$ ]] || SNGS+=("$TMPVRBL" )
