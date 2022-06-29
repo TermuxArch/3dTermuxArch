@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ## Copyright 2022 by TermuxArch, all rights reserved, please see LICENSE 🌎 🌍 🌏
-## Command 'wait an event' derives from the theories of grey music cognition and music as medicine:
+## The command 'wait an event' is derived from the theories of grey music cognition and music as medicine and group dsscussions on Termux community channels when the SDRausty account was NOT banned Termux open source code squatters, circe 2018.  Please reference https://github.com/SDRausty/builtAPKs/issues/2:
 ## SYNTAX: 'wae [filename] [min snooze time] [max snoose time]'
 ## USAGE: 'wae *.mp3 16 256'
 ##############################################################################
