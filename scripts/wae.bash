@@ -5,7 +5,7 @@
 ## snooze time = time between each play in seconds
 
 ## SYNTAX: 'wae [audio files] [audio files] [min snooze time] [max snooze time]'
-## USAGE: 'wae *.mp3 path/file.mp4 16 256' plays sound files and waits from 16 to 256 seconds between each play.  Multiple Termux sessions can be used in order to run commands 'wae arguments' simultainiously and to switch seamlessly between plays.
+## USAGE: 'wae *.mp3 path/file.mp4 16 256' plays sound files and waits from 16 to 256 seconds between each play.  Multiple Termux sessions can be used in order to run commands 'wae arguments' simultaneously and to switch seamlessly between plays.
 ##############################################################################
 set -eu
 ARG0="${0##*/}"
