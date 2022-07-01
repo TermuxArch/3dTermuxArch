@@ -29,6 +29,7 @@ play-audio "$TRCK" || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${ARG0^^}
 read -n 1 -rs -t 0.01 INPUT && { [[ $INPUT = [Aa] ]] || [[ $INPUT = [Ee] ]] || [[ $INPUT = [Ss] ]] || [[ $INPUT = [Qq] ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${ARG0^^} INFO keypress $INPUT was detected;  " && exit
 SHFNNT="$(shuf -n 1 -i "$ARG2"-"$ARG3")"
 printf '\e[2K\r\e[0;32m%s\e[0m' "${ARG0^^} INFO snoozing for ${SHFNNT:-24} seconds..."
+read -n 1 -rs -t 0.01 INPUT && { [[ $INPUT = [Aa] ]] || [[ $INPUT = [Ee] ]] || [[ $INPUT = [Ss] ]] || [[ $INPUT = [Qq] ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${ARG0^^} INFO keypress $INPUT was detected;  " && exit
 sleep "${SHFNNT:-24}"
 }
 _PLYD_(){
