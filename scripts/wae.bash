@@ -12,11 +12,11 @@
 ## 	wae file.mp3 path/*.mp3 8 32		plays sound files and waits from eight to thirty two seconds between each play
 
 ## OPTIONS WHILE PLAYING:
-## 	b[reak]	break at end of play or snooze
-## 	CTRL+\	immediately Quit
-## 	CTRL+C	immediately ^C
-## 	e[xit]	exit at end of play or snooze
-## 	q[uit]	quit at end of play or snooze
+## 	b[reak]		break at end of play or snooze
+## 	CTRL+\		immediately Quit
+## 	CTRL+C		immediately ^C
+## 	e[xit]		exit at end of play or snooze
+## 	q[uit]		quit at end of play or snooze
 
 ## SYNTAX  wae audio_file[s] [audio files] [min snooze time] [max snooze time]
 
