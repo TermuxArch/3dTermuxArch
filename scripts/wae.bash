@@ -14,8 +14,8 @@
 
 ## OPTIONS WHILE PLAYING:
 ## 	b[reak]		break at end of play or snooze
-## 	CTRL+\		immediately Quit
-## 	CTRL+C		immediately ^C
+## 	CTRL+\		immediately quit current task
+## 	CTRL+C		immediately terminate wae session
 ## 	e[xit]		exit at end of either play or snooze loops
 ## 	h[elp]		shows the help screen
 ## 	q[uit]		quit at end of either play or snooze loops
