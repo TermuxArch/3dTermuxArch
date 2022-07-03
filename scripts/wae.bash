@@ -59,9 +59,9 @@ TMPCMD="am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.
 { $TMPCMD && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " ; } || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
 while :
 do
+{ read -n 1 -rs -t 0.01 INPUT && { { [[ $INPUT = [Aa]* ]] || [[ $INPUT = [Ee]* ]] || [[ $INPUT = [Ss]* ]] || [[ $INPUT = [Qq]* ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress $INPUT was detected;  " && exit ; } || { [[ $INPUT = [Bb]* ]] && printf '\n\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress $INPUT was detected;  " && break ; } ; }
 for TRCK in "${SNGS[@]}"
 do
-{ read -n 1 -rs -t 0.01 INPUT && { { [[ $INPUT = [Aa]* ]] || [[ $INPUT = [Ee]* ]] || [[ $INPUT = [Ss]* ]] || [[ $INPUT = [Qq]* ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress $INPUT was detected;  " && exit ; } || { [[ $INPUT = [Bb]* ]] && printf '\n\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress $INPUT was detected;  " && break ; } ; }
 _DPLY_
 { read -n 1 -rs -t 0.01 INPUT && { { [[ $INPUT = [Aa]* ]] || [[ $INPUT = [Ee]* ]] || [[ $INPUT = [Ss]* ]] || [[ $INPUT = [Qq]* ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress $INPUT was detected;  " && exit ; } || { [[ $INPUT = [Bb]* ]] && printf '\n\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress $INPUT was detected;  " && break ; } ; }
 _DSLP_
