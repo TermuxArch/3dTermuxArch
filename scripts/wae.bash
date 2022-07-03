@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-##############################################################################
+################################################################################
 ## Copyright 2022 by TermuxArch, all rights reserved, please see LICENSE 🌎 🌍 🌏
 
 ## The command 'wait an event' is derived from the theories of grey music cognition and music as medicine.  Termux group discussions circa 2018 at Termux community channels were very helpful before the SDRausty account was banned by Termux curators doing the work of open source code squatters.  Please reference https://github.com/SDRausty/builtAPKs/issues/2 for more information about open source code squatting.
@@ -23,8 +23,7 @@
 ## Variables STMN=32 and STMX=512 can be edited in order to set the default minimum and maximum snooze times.  Please see 'wae cat' for more information.
 
 ## Multiple sessions can be used in order to run commands 'wae arguments' simultaneously and to switch seamlessly between plays.
-
-##############################################################################
+################################################################################
 set -eu
 FLNM="${0##*/}"
 STMN=32
@@ -70,5 +69,5 @@ done
 done
 }
 
-{ [[ -z "${SNGS[@]}" ]] && printf '\e[0;33m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " && exit ; } || _PLYD_
+{ [[ -z "${SNGS[@]}" ]] && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "The command 'wae help' has more information;  " && exit ; } || _PLYD_
 # wae.bash EF
