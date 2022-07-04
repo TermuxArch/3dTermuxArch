@@ -16,9 +16,9 @@
 ## 	b[reak]		break at end of play or snooze
 ## 	CTRL+\		immediately quit current task
 ## 	CTRL+C		immediately terminate wae session
-## 	e[xit]		exit at end of either play or snooze loops
-## 	h[elp]		shows the help screen
-## 	q[uit]		quit at end of either play or snooze loops
+## 	e[xit]		exit at end of either play or snooze
+## 	h[elp]		show help screen at end of task
+## 	q[uit]		quit at end of either play or snooze
 
 ## SYNTAX  wae audio_file[s] [audio files] [min snooze time] [max snooze time]
 
