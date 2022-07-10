@@ -42,9 +42,9 @@ done
 
 FRSTNM="${FRSTNM:-$STMN}"
 SCNDNM="${SCNDNM:-$STMX}"
-{ { [[ -n "${SCNDNM:-}" ]] && [[ "$FRSTNM" -le "$STMN" ]] ; } || { FRSTNM="$FRSTNM" && SCNDNM="$STMN" ; } ; }
+[[ "$FRSTNM" -eq "$SCNDNM" ]] || { { { [[ -n "${SCNDNM:-}" ]] && [[ "$FRSTNM" -le "$STMN" ]] ; } || { FRSTNM="$FRSTNM" && SCNDNM="$STMN" ; } ; }
 { {  [[ -n "${SCNDNM:-}" ]] && [[ "$FRSTNM" -le "$STMX" ]] ; } || { SCNDNM="$FRSTNM" && FRSTNM="$STMN" ; } ; }
-[[ "$FRSTNM" -lt "$SCNDNM" ]] || { RSRVNM="$FRSTNM" && FRSTNM="$SCNDNM" && SCNDNM="$RSRVNM" ; }
+[[ "$FRSTNM" -lt "$SCNDNM" ]] || { RSRVNM="$FRSTNM" && FRSTNM="$SCNDNM" && SCNDNM="$RSRVNM" ; } ; }
 
 _DPLY_(){
 printf '\e[2K\r%s' "Playing '${TRCK##*/}'..."
@@ -54,7 +54,7 @@ play-audio "$TRCK" || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^}
 _DSLP_(){
 SHFNNT="$(shuf -n 1 -i "$FRSTNM"-"$SCNDNM")"
 printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing for ${SHFNNT:-24} seconds..."
-sleep "${SHFNNT:-24}" || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE not snoozing for ${SHFNNT:-24} seconds;  Snoozing for four seconds;  " && sleep 4 ; }
+sleep "${SHFNNT:-24}" || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE not snoozing for ${SHFNNT:-24} seconds;  Snoozing for two seconds;  " && sleep 2 ; }
 }
 
 _PLYD_(){
