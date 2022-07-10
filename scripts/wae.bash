@@ -7,17 +7,17 @@
 ## 	snooze time = time between each play in seconds
 
 ## INVOCATIONS:
-## 	wae c[at]			cats this file
-## 	wae h[elp]			shows the help screen
-## 	wae *.mp3 path/*.mp3 8 32	plays sound files and waits from eight to thirty two seconds between each play
-## 	wae file.mp3			plays one sound file and waits anywhere from thirty two to eight minutes and thirty two seconds between each play
+## 	wae c[at]			print this file on standard output
+## 	wae h[elp]			show the help screen
+## 	wae *.mp3 path/*.mp3 8 32	play sound files and wait from eight to thirty two seconds between each play
+## 	wae file.mp3			play one sound file continually using default snooze time to pause between each play
 
 ## OPTIONS WHILE PLAYING:
 ## 	b[reak]		break at end of play or snooze
 ## 	CTRL+\		immediately quit current task
-## 	CTRL+C		immediately terminate wae session
+## 	CTRL+C		terminate wae session immediately
 ## 	e[xit]		exit at end of either play or snooze
-## 	h[elp]		show help screen at end of task
+## 	h[elp]		print help screen at end of current task
 ## 	q[uit]		quit at end of either play or snooze
 
 ## SYNTAX  wae audio_file[s] [audio files] [min snooze time] [max snooze time]
@@ -72,5 +72,5 @@ done
 done
 }
 
-{ [[ -z "${SNGS[@]}" ]] && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "The command '$FLNM help' has more information;  " && exit ; } || _PLYD_
+{ [[ -z "${SNGS[@]}" ]] && TMPCMD="$(sed -n '23p' $0 | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit ; } || _PLYD_
 # wae.bash EF
