@@ -53,8 +53,8 @@ play-audio "$TRCK" || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^}
 
 _DSLP_(){
 SHFNNT="$(shuf -n 1 -i "$FRSTNM"-"$SCNDNM")"
-printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing for ${SHFNNT:-24} seconds..."
-sleep "${SHFNNT:-24}" || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE not snoozing for ${SHFNNT:-24} seconds;  Snoozing for two seconds;  " && sleep 2 ; }
+printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing '${TRCK##*/}' for ${SHFNNT:-24} seconds..."
+sleep "${SHFNNT:-24}" || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE not snoozing '${TRCK##*/}' for ${SHFNNT:-24} seconds;  Snoozing for two seconds;  " && sleep 2 ; }
 }
 
 _PLYD_(){
