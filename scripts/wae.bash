@@ -37,9 +37,8 @@ _SHWHLP_() { TMPCMD="$(sed -n '3,27p' $0 | sed 's/##\ //g')" && printf '\e[0;32m
 for TMPVRBL in "$@"
 do
 [[ "$TMPVRBL" =~ ^[0-9]+$ ]] || SNGS+=("$TMPVRBL" )
-{ [[ "$TMPVRBL" =~ ^[0-9]+$ ]] && { { [[ -z "${FRSTNM:-}" ]] && FRSTNM="$TMPVRBL" ; } || { [[ -z "${SCNDNM:-}" ]] && SCNDNM="$TMPVRBL" ; } ; } ; }
+[[ "$TMPVRBL" =~ ^[0-9]+$ ]] && { { [[ -z "${FRSTNM:-}" ]] && FRSTNM="$TMPVRBL" ; } || { [[ -z "${SCNDNM:-}" ]] && SCNDNM="$TMPVRBL" ; } ; }
 done
-
 FRSTNM="${FRSTNM:-$STMN}"
 SCNDNM="${SCNDNM:-$STMX}"
 [[ "$FRSTNM" -le "$SCNDNM" ]] || { RSRVNM="$FRSTNM" && FRSTNM="$SCNDNM" && SCNDNM="$RSRVNM" ; }
@@ -59,14 +58,18 @@ _PLYD_(){
 TMPCMD="am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService" && $TMPCMD && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
 while :
 do
-{ read -n 1 -rs -t 0.01 INPUT && { { [[ $INPUT = [Aa]* ]] || [[ $INPUT = [Ee]* ]] || [[ $INPUT = [Ss]* ]] || [[ $INPUT = [Qq]* ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress $INPUT was detected;  " && exit ; } || { [[ $INPUT = [Bb]* ]] && printf '\n\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress $INPUT was detected;  " && break ; } || { [[ $INPUT = [Hh]* ]] && _SHWHLP_ ; } ; }
+_RDLN_ ; [[ $INPUT = [Bb]* ]] && { printf '\n\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$INPUT' was detected;  " && break ; }
 for TRCK in "${SNGS[@]}"
 do
 _DPLY_
-{ read -n 1 -rs -t 0.01 INPUT && { { [[ $INPUT = [Aa]* ]] || [[ $INPUT = [Ee]* ]] || [[ $INPUT = [Ss]* ]] || [[ $INPUT = [Qq]* ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress $INPUT was detected;  " && exit ; } || { [[ $INPUT = [Bb]* ]] && printf '\n\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress $INPUT was detected;  " && break ; } || { [[ $INPUT = [Hh]* ]] && _SHWHLP_ ; } ; }
+_RDLN_ ; [[ $INPUT = [Bb]* ]] && { printf '\n\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$INPUT' was detected;  " && break ; }
 _DSLP_
 done
 done
+}
+
+_RDLN_(){
+read -n 1 -rs -t 0.01 INPUT && { { [[ $INPUT = [Aa]* ]] || [[ $INPUT = [Ee]* ]] || [[ $INPUT = [Ss]* ]] || [[ $INPUT = [Qq]* ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress '$INPUT' was detected;  " && exit ; } || { [[ $INPUT = [Hh]* ]] && _SHWHLP_ ; } ||:
 }
 
 [[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '23p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit || _PLYD_
