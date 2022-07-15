@@ -13,12 +13,13 @@
 ## 	wae file.mp3			play one sound file continually using default snooze time to pause between each play
 
 ## OPTIONS WHILE PLAYING:
-## 	b[reak]		break at end of play or snooze
+## 	a[bort]		abort at end of current task
+## 	b[reak]		break at end of current task
 ## 	CTRL+\		immediately quit current task
 ## 	CTRL+C		terminate wae session immediately
-## 	e[xit]		exit at end of either play or snooze
-## 	h[elp]		print help screen at end of current task
-## 	q[uit]		quit at end of either play or snooze
+## 	e[xit]		exit at end of current task
+## 	h[elp]		print help at end of current task
+## 	q[uit]		quit at end of current task
 
 ## SYNTAX  wae audio_file[s] [audio files] [min snooze time] [max snooze time]
 
@@ -58,18 +59,18 @@ _PLYD_(){
 TMPCMD="am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService" && $TMPCMD && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
 while :
 do
-_RDLN_ ; [[ $INPUT = [Bb]* ]] && { printf '\n\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$INPUT' was detected;  " && break ; }
+_RDLN_ && [[ $INPUT = [Bb]* ]] && { printf '\n\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$INPUT' was detected;  " && break ; }
 for TRCK in "${SNGS[@]}"
 do
 _DPLY_
-_RDLN_ ; [[ $INPUT = [Bb]* ]] && { printf '\n\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$INPUT' was detected;  " && break ; }
+_RDLN_ && [[ $INPUT = [Bb]* ]] && { printf '\n\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$INPUT' was detected;  " && break ; }
 _DSLP_
 done
 done
 }
 
 _RDLN_(){
-read -n 1 -rs -t 0.01 INPUT && { { [[ $INPUT = [Aa]* ]] || [[ $INPUT = [Ee]* ]] || [[ $INPUT = [Ss]* ]] || [[ $INPUT = [Qq]* ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress '$INPUT' was detected;  " && exit ; } || { [[ $INPUT = [Hh]* ]] && _SHWHLP_ ; } ||:
+read -n 1 -rs -t 0.01 INPUT && { { [[ $INPUT = [Aa]* ]] || [[ $INPUT = [Ee]* ]] || [[ $INPUT = [Ss]* ]] || [[ $INPUT = [Qq]* ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress '$INPUT' was detected;  " && exit ; } || { [[ $INPUT = [Hh]* ]] && _SHWHLP_ ; } || { printf '\e[2K\r%s' "Commands a, b, e, h, and q are available." && sleep 1 ; }
 }
 
 [[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '23p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit || _PLYD_
