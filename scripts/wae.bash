@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -x
 ################################################################################
 ## Copyright 2022 by TermuxArch, all rights reserved, please see LICENSE 🌎 🌍 🌏
 
@@ -42,9 +43,7 @@ done
 
 FRSTNM="${FRSTNM:-$STMN}"
 SCNDNM="${SCNDNM:-$STMX}"
-[[ "$FRSTNM" -eq "$SCNDNM" ]] || { { { [[ -n "${SCNDNM:-}" ]] && [[ "$FRSTNM" -le "$STMN" ]] ; } || { FRSTNM="$FRSTNM" && SCNDNM="$STMN" ; } ; }
-{ {  [[ -n "${SCNDNM:-}" ]] && [[ "$FRSTNM" -le "$STMX" ]] ; } || { SCNDNM="$FRSTNM" && FRSTNM="$STMN" ; } ; }
-[[ "$FRSTNM" -lt "$SCNDNM" ]] || { RSRVNM="$FRSTNM" && FRSTNM="$SCNDNM" && SCNDNM="$RSRVNM" ; } ; }
+[[ "$FRSTNM" -eq "$SCNDNM" ]] || [[ "$FRSTNM" -lt "$SCNDNM" ]] || { RSRVNM="$FRSTNM" && FRSTNM="$SCNDNM" && SCNDNM="$RSRVNM" ; }
 
 _DPLY_(){
 printf '\e[2K\r%s' "Playing '${TRCK##*/}'..."
@@ -58,8 +57,7 @@ sleep "${SHFNNT:-24}" || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' 
 }
 
 _PLYD_(){
-TMPCMD="am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService"
-{ $TMPCMD && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " ; } || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
+TMPCMD="am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService" && $TMPCMD && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
 while :
 do
 { read -n 1 -rs -t 0.01 INPUT && { { [[ $INPUT = [Aa]* ]] || [[ $INPUT = [Ee]* ]] || [[ $INPUT = [Ss]* ]] || [[ $INPUT = [Qq]* ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress $INPUT was detected;  " && exit ; } || { [[ $INPUT = [Bb]* ]] && printf '\n\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress $INPUT was detected;  " && break ; } || { [[ $INPUT = [Hh]* ]] && _SHWHLP_ ; } ; }
@@ -72,5 +70,5 @@ done
 done
 }
 
-{ [[ -z "${SNGS[@]}" ]] && TMPCMD="$(sed -n '23p' $0 | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit ; } || _PLYD_
+[[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '23p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit || _PLYD_
 # wae.bash EF
