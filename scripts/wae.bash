@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -x
 ################################################################################
 ## Copyright 2022 by TermuxArch, all rights reserved, please see LICENSE 🌎 🌍 🌏
 
