@@ -42,7 +42,7 @@ done
 
 FRSTNM="${FRSTNM:-$STMN}"
 SCNDNM="${SCNDNM:-$STMX}"
-[[ "$FRSTNM" -eq "$SCNDNM" ]] || [[ "$FRSTNM" -lt "$SCNDNM" ]] || { RSRVNM="$FRSTNM" && FRSTNM="$SCNDNM" && SCNDNM="$RSRVNM" ; }
+[[ "$FRSTNM" -le "$SCNDNM" ]] || { RSRVNM="$FRSTNM" && FRSTNM="$SCNDNM" && SCNDNM="$RSRVNM" ; }
 
 _DPLY_(){
 printf '\e[2K\r%s' "Playing '${TRCK##*/}'..."
