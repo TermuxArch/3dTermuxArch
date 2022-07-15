@@ -58,7 +58,7 @@ sleep "${SHFNNT:-24}" || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' 
 }
 
 _PLYD_(){
-TMPCMD="am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService 1>/dev/null"
+TMPCMD="am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService"
 { $TMPCMD && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " ; } || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
 while :
 do
