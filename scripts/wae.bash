@@ -69,7 +69,7 @@ done
 }
 
 _RDLN_(){
-read -sn1 -t 0.01 REPLY && { { [[ $REPLY = [Aa]* ]] || [[ $REPLY = [Ee]* ]] || [[ $REPLY = [Ss]* ]] || [[ $REPLY = [Qq]* ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit ; } || { [[ $REPLY = [Hh]* ]] && _SHWHLP_ ; } || { printf '\e[2K\r%s' "Commands a, b, e, h, and q are available." && sleep 1 ; }
+read -n 1 -rs -t 0.01 REPLY && { { [[ $REPLY = [Aa]* ]] || [[ $REPLY = [Ee]* ]] || [[ $REPLY = [Ss]* ]] || [[ $REPLY = [Qq]* ]] ; } && printf '\n\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit ; } || { [[ $REPLY = [Hh]* ]] && _SHWHLP_ ; } || { printf '\e[2K\r%s' "Commands a, b, e, h, and q are available." && sleep 1 ; }
 }
 
 _STRTSRVC_(){
