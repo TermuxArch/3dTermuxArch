@@ -16,7 +16,7 @@
 ## 	a[bort]		abort at end of current task
 ## 	b[reak]		break at end of current task
 ## 	CTRL+\		immediately quit current task
-## 	CTRL+C		terminate wae session immediately
+## 	CTRL+C		immediately quit wae session
 ## 	e[xit]		exit at end of current task
 ## 	h[elp]		print help at end of current task
 ## 	q[uit]		quit at end of current task
