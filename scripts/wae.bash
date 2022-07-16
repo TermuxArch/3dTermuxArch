@@ -45,7 +45,7 @@ SCNDNM="${SCNDNM:-$STMX}"
 [[ "$FRSTNM" -le "$SCNDNM" ]] || { RSRVNM="$FRSTNM" && FRSTNM="$SCNDNM" && SCNDNM="$RSRVNM" ; }
 
 _DPLY_(){
-printf '\e[2K\rPlaying '${TRCK##*/}'...  '
+printf '\e[2K\rPlaying '%s'...  ' "${TRCK##*/}"
 play-audio "$TRCK" || printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE play-audio $TRCK;  "
 }
 
