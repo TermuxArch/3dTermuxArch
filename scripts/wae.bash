@@ -15,8 +15,8 @@
 ## OPTIONS WHILE PLAYING:
 ## 	a[bort]		abort at end of current task
 ## 	b[reak]		break at end of current task
-## 	CTRL+\		immediately quit current task
-## 	CTRL+C		immediately quit wae session
+## 	CTRL+\		quit current task
+## 	CTRL+C		quit wae session
 ## 	e[xit]		exit at end of current task
 ## 	h[elp]		print help at end of current task
 ## 	q[uit]		quit at end of current task
@@ -50,9 +50,7 @@ play-audio "$TRCK" || printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FL
 }
 
 _DSLP_(){
-SHFNNT="$(shuf -n 1 -i "$FRSTNM"-"$SCNDNM")"
-printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing '${TRCK##*/}' for ${SHFNNT:-24} seconds..."
-sleep "${SHFNNT:-24}" || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE not snoozing '${TRCK##*/}' for ${SHFNNT:-24} seconds;  Snoozing for two seconds;  " && sleep 2 ; }
+SHFNNT="$(shuf -n 1 -i "$FRSTNM"-"$SCNDNM")" && printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing after '${TRCK##*/}' for ${SHFNNT:-24} seconds..." && sleep "${SHFNNT:-24}" || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE not snoozing after '${TRCK##*/}' for ${SHFNNT:-24} seconds;  Snoozing for two seconds;  " && sleep 2 ; }
 }
 
 _PLYD_(){
@@ -73,7 +71,8 @@ read -n 1 -rs -t 0.01 && { { [[ $REPLY = [Aa] ]] || [[ $REPLY = [Ee] ]] || [[ $R
 }
 
 _STRTSRVC_(){
-TMPCMD="am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService" && $TMPCMD && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
+TMPCMD="start service wake lock" && am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService > /dev/null && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
+# TMPCMD="am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService > /dev/null" && $TMPCMD && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
 }
 
 [[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '24p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit || { _STRTSRVC_ && _PLYD_ ; }
