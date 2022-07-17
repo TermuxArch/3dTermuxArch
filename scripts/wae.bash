@@ -7,20 +7,20 @@
 ## 	snooze time = time between each play in seconds
 
 ## INVOCATIONS:
-## 	wae c[at]			print this file on standard output
-## 	wae h[elp]			show the help screen
-## 	wae *.mp3 path/*.mp3 8 32	play sound files and wait from eight to thirty two seconds between each play
-## 	wae file.mp3			play one sound file continually using default snooze time to pause between each play
+## wae c[at]			print this file on standard output
+## wae h[elp]			show the help screen
+## wae *.mp3 path/*.mp3 8 32	play sound files and wait from eight to thirty two seconds between each play
+## wae file.mp3			play one sound file continually using default snooze time to pause between each play
 
 ## OPTIONS WHILE PLAYING:
-## 	a[bort]		abort at end of current task
-## 	b[reak]		break at end of current task
-## 	CTRL+\		quit current task
-## 	CTRL+C		quit wae session
-## 	e[xit]		exit at end of current task
-## 	h[elp]		print help at end of current task
-## 	s[huffle]	shuffle playlist
-## 	q[uit]		quit at end of current task
+## a[bort]		abort at end of current task
+## b[reak]		break at end of current task
+## CTRL+\		quit current task
+## CTRL+C		quit wae session
+## e[xit]		exit at end of current task
+## h[elp]		print help at end of current task
+## s[huffle]	shuffle playlist
+## q[uit]		quit at end of current task
 
 ## SYNTAX  wae audio_file[s] [audio files] [min snooze time] [max snooze time]
 
