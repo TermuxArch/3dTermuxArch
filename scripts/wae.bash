@@ -19,6 +19,7 @@
 ## 	CTRL+C		quit wae session
 ## 	e[xit]		exit at end of current task
 ## 	h[elp]		print help at end of current task
+## 	s[huffle]	shuffle playlist
 ## 	q[uit]		quit at end of current task
 
 ## SYNTAX  wae audio_file[s] [audio files] [min snooze time] [max snooze time]
@@ -32,7 +33,7 @@ FLNM="${0##*/}"
 STMN=32
 STMX=512
 [ "${1:-}" != "" ] && { { [[ "${1//-}" = [Cc] ]] || [[ "${1//-}" = [Cc][Aa] ]] || [[ "${1//-}" = [Cc][Aa][Tt] ]] || [[ "${1//-}" = [Vv] ]] || [[ "${1//-}" = [Vv][Ee] ]] || [[ "${1//-}" = [Vv][Ee][Rr] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii][Oo] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii][Oo][Nn] ]] ; } && { printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0" ; exit ; } ; }
-_SHWHLP_() { TMPCMD="$(sed -n '3,28p' "$0" | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "${FLNM^^} HELP $TMPCMD" ; }
+_SHWHLP_() { TMPCMD="$(sed -n '3,29p' "$0" | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "${FLNM^^} HELP $TMPCMD" ; }
 [ "${1:-}" != "" ] && { { [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] ; } && _SHWHLP_ && exit ; }
 
 for TMPVRBL in "$@"
@@ -45,7 +46,7 @@ SCNDNM="${SCNDNM:-$STMX}"
 [[ "$FRSTNM" -le "$SCNDNM" ]] || { RSRVNM="$FRSTNM" && FRSTNM="$SCNDNM" && SCNDNM="$RSRVNM" ; }
 
 _DPLY_(){
-printf '\e[2K\rPlaying '%s'...  ' "${TRCK##*/}"
+printf '\e[2K\rPlaying %s...  ' "'${TRCK##*/}'"
 play-audio "$TRCK" || printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE play-audio $TRCK;  "
 }
 
@@ -58,21 +59,21 @@ while :
 do
 for TRCK in "${SNGS[@]}"
 do
-_RDLN_ && [[ $REPLY = [Bb] ]] && { printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; }
+_RDLN_ && { [[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; } || { [[ $REPLY = [Ss] ]] && printf '\e[2K\r\e[1;32m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE shuffling playlist;  " && sleep 1 && SNGS=( $(shuf -e "${SNGS[@]}") ) && break ; }
 _DPLY_
-_RDLN_ && [[ $REPLY = [Bb] ]] && { printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; }
+_RDLN_ && { [[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; } || { [[ $REPLY = [Ss] ]] && printf '\e[2K\r\e[1;32m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE shuffling playlist;  " && sleep 1 && SNGS=( $(shuf -e "${SNGS[@]}") ) && break ; }
 _DSLP_
 done
 done
 }
 
 _RDLN_(){
-read -n 1 -rs -t 0.01 && { { [[ $REPLY = [Aa] ]] || [[ $REPLY = [Ee] ]] || [[ $REPLY = [Ss] ]] || [[ $REPLY = [Qq] ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit ; } || { [[ $REPLY = [Hh] ]] && _SHWHLP_ ; } || { printf '\e[2K\rCommands CTRL+\, CTRL+C, a, b, e, h, and q are available.  ' && sleep 0.5 ; }
+read -n 1 -rs -t 0.01 && { { [[ $REPLY = [Aa] ]] || [[ $REPLY = [Ee] ]] || [[ $REPLY = [Qq] ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit ; } || { [[ $REPLY = [Hh] ]] && _SHWHLP_ ; } || { printf '\e[2K\rCommands CTRL+\, CTRL+C, a, b, e, h, and q are available.  ' && sleep 0.3 ; }
 }
 
 _STRTSRVC_(){
 TMPCMD="start service wake lock" && am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService > /dev/null && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
 }
 
-{ [[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '24p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit ; } || { _STRTSRVC_ && _PLYD_ ; }
+{ [[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '25p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit ; } || { _STRTSRVC_ && _PLYD_ ; }
 # wae.bash EF
