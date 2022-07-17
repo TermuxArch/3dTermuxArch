@@ -50,7 +50,7 @@ play-audio "$TRCK" || printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FL
 }
 
 _DSLP_(){
-SHFNNT="$(shuf -n 1 -i "$FRSTNM"-"$SCNDNM")" && printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing after '${TRCK##*/}' for ${SHFNNT:-24} seconds..." && sleep "${SHFNNT:-24}" || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE not snoozing after '${TRCK##*/}' for ${SHFNNT:-24} seconds;  Snoozing for two seconds;  " && sleep 2 ; }
+{ SHFNNT="$(shuf -n 1 -i "$FRSTNM"-"$SCNDNM")" && printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing after '${TRCK##*/}' for ${SHFNNT:-24} seconds..." && sleep "${SHFNNT:-24}" ; } || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE not snoozing after '${TRCK##*/}' for ${SHFNNT:-24} seconds;  Snoozing for two seconds;  " && sleep 2 ; }
 }
 
 _PLYD_(){
@@ -74,5 +74,5 @@ _STRTSRVC_(){
 TMPCMD="start service wake lock" && am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService > /dev/null && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
 }
 
-[[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '24p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit || { _STRTSRVC_ && _PLYD_ ; }
+{ [[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '24p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit ; } || { _STRTSRVC_ && _PLYD_ ; }
 # wae.bash EF
