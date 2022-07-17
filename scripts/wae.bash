@@ -60,16 +60,16 @@ while :
 do
 for TRCK in "${SNGS[@]}"
 do
-_RDLN_ && [[ $REPLY = [Bb]* ]] && { printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; }
+_RDLN_ && [[ $REPLY = [Bb] ]] && { printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; }
 _DPLY_
-_RDLN_ && [[ $REPLY = [Bb]* ]] && { printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; }
+_RDLN_ && [[ $REPLY = [Bb] ]] && { printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; }
 _DSLP_
 done
 done
 }
 
 _RDLN_(){
-read -n 1 -rs -t 0.01 REPLY && { { [[ $REPLY = [Aa]* ]] || [[ $REPLY = [Ee]* ]] || [[ $REPLY = [Ss]* ]] || [[ $REPLY = [Qq]* ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit ; } || { [[ $REPLY = [Hh]* ]] && _SHWHLP_ ; } || { printf '\e[2K\rCommands a, b, e, h, and q are available.  ' && sleep 0.5 ; }
+read -n 1 -rs -t 0.01 && { { [[ $REPLY = [Aa] ]] || [[ $REPLY = [Ee] ]] || [[ $REPLY = [Ss] ]] || [[ $REPLY = [Qq] ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit ; } || { [[ $REPLY = [Hh] ]] && _SHWHLP_ ; } || { printf '\e[2K\rCommands CTRL+\, CTRL+C, a, b, e, h, and q are available.  ' && sleep 0.5 ; }
 }
 
 _STRTSRVC_(){
