@@ -72,7 +72,6 @@ read -n 1 -rs -t 0.01 && { { [[ $REPLY = [Aa] ]] || [[ $REPLY = [Ee] ]] || [[ $R
 
 _STRTSRVC_(){
 TMPCMD="start service wake lock" && am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService > /dev/null && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
-# TMPCMD="am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService > /dev/null" && $TMPCMD && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
 }
 
 [[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '24p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit || { _STRTSRVC_ && _PLYD_ ; }
