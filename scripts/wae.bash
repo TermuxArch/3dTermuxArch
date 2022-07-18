@@ -69,7 +69,9 @@ done
 
 _RDLN_(){
 OIFS="$IFS"
-read -n 1 -rs -t 0.01 && { { [[ $REPLY = [Aa] ]] || [[ $REPLY = [Ee] ]] || [[ $REPLY = [Qq] ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit ; } || { [[ $REPLY = [Hh] ]] && _SHWHLP_ ; } ||:
+read -n 1 -rs -t 0.01
+{ { [[ $REPLY = [Aa] ]] || [[ $REPLY = [Ee] ]] || [[ $REPLY = [Qq] ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit ; }
+[[ $REPLY = [Hh] ]] && _SHWHLP_
 }
 
 _STRTSRVC_(){
