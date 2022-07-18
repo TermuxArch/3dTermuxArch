@@ -51,7 +51,7 @@ play-audio "$TRCK" || printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FL
 }
 
 _DSLP_(){
-{ SHFNNT="$(shuf -n 1 -i "$FRSTNM"-"$SCNDNM")" && printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing after '${TRCK##*/}' for ${SHFNNT:-24} seconds..." && sleep "${SHFNNT:-24}" ; } || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE not snoozing after '${TRCK##*/}' for ${SHFNNT:-24} seconds;  Snoozing for two seconds;  " && sleep 2 ; }
+{ SHFNNT="$(shuf -n 1 -i "$FRSTNM"-"$SCNDNM")" && printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing for ${SHFNNT:-24} seconds after '${TRCK##*/}'..." && sleep "${SHFNNT:-24}" ; } || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE not snoozing for ${SHFNNT:-24} seconds after '${TRCK##*/}';  Snoozing for two seconds;  " && sleep 2 ; }
 }
 
 _PLYD_(){
@@ -59,9 +59,9 @@ while :
 do
 for TRCK in "${SNGS[@]}"
 do
-{ _RDLN_ && [[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; } || { [[ $REPLY = [Ss] ]] && printf '\e[1;32m%s\e[0;32mCONTINUING...\e[0m\n' "  ${FLNM^^} NOTICE shuffling playlist;  " && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && IFS="$OIFS" && break ; }
+{ _RDLN_ && [[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; } || { [[ $REPLY = [Ss] ]] && printf '\e[1;32m%s\e[0;32mCONTINUING...\e[0m\n' "  ${FLNM^^} NOTICE shuffling playlist;  " && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && printf '%s\n' "${SNGS[@]}" && IFS="$OIFS" && break ; }
 _DPLY_
-{ _RDLN_ && [[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; } || { [[ $REPLY = [Ss] ]] && printf '\e[1;32m%s\e[0;32mCONTINUING...\e[0m\n' "  ${FLNM^^} NOTICE shuffling playlist;  " && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && IFS="$OIFS" && break ; }
+{ _RDLN_ && [[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; } || { [[ $REPLY = [Ss] ]] && printf '\e[1;32m%s\e[0;32mCONTINUING...\e[0m\n' "  ${FLNM^^} NOTICE shuffling playlist;  " && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && printf '%s\n' "${SNGS[@]}" && IFS="$OIFS" && break ; }
 _DSLP_
 done
 done
