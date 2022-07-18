@@ -4,7 +4,7 @@
 
 ## The command 'wait an event' is derived from the theories of grey music cognition and music as medicine.  Termux group discussions circa 2018 at Termux community channels were very helpful before the SDRausty account was banned by Termux curators doing the work of open source code squatters.  Please reference https://github.com/SDRausty/builtAPKs/issues/2 for more information about open source code squatting.
 
-## 	snooze time = time between each play in seconds
+## snooze time = time between each play in seconds
 
 ## INVOCATIONS:
 ## wae c[at]			print this file on standard output
@@ -33,7 +33,7 @@ FLNM="${0##*/}"
 STMN=32
 STMX=512
 [ "${1:-}" != "" ] && { { [[ "${1//-}" = [Cc] ]] || [[ "${1//-}" = [Cc][Aa] ]] || [[ "${1//-}" = [Cc][Aa][Tt] ]] || [[ "${1//-}" = [Vv] ]] || [[ "${1//-}" = [Vv][Ee] ]] || [[ "${1//-}" = [Vv][Ee][Rr] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii][Oo] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii][Oo][Nn] ]] ; } && { printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0" ; exit ; } ; }
-_SHWHLP_() { TMPCMD="$(sed -n '3,29p' "$0" | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "  ${FLNM^^} HELP $TMPCMD" ; }
+_SHWHLP_() { TMPCMD="$(sed -n '3,29p' "$0" | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "${FLNM^^} HELP $TMPCMD" ; }
 [ "${1:-}" != "" ] && { { [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] ; } && _SHWHLP_ && exit ; }
 
 for TMPVRBL in "$@"
@@ -59,9 +59,9 @@ while :
 do
 for TRCK in "${SNGS[@]}"
 do
-_RDLN_ && { [[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; } || { [[ $REPLY = [Ss] ]] && printf '\e[0;32m%s\e[0;32mCONTINUING...\e[0m\n' "  ${FLNM^^} NOTICE shuffling playlist;  " && SNGS=( $(shuf -e "${SNGS[@]}") ) && break ; }
+{ _RDLN_ && [[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; } || { [[ $REPLY = [Ss] ]] && printf '\e[1;32m%s\e[0;32mCONTINUING...\e[0m\n' "  ${FLNM^^} NOTICE shuffling playlist;  " && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && break ; }
 _DPLY_
-_RDLN_ && { [[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; } || { [[ $REPLY = [Ss] ]] && printf '\e[0;32m%s\e[0;32mCONTINUING...\e[0m\n' "  ${FLNM^^} NOTICE shuffling playlist;  " && SNGS=( $(shuf -e "${SNGS[@]}") ) && break ; }
+{ _RDLN_ && [[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; } || { [[ $REPLY = [Ss] ]] && printf '\e[1;32m%s\e[0;32mCONTINUING...\e[0m\n' "  ${FLNM^^} NOTICE shuffling playlist;  " && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && break ; }
 _DSLP_
 done
 done
