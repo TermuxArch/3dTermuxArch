@@ -11,6 +11,7 @@
 ## wae h[elp]			show the help screen
 ## wae *.mp3 path/*.mp3 8 32	play sound files and wait from eight to thirty two seconds between each play
 ## wae file.mp3			play one sound file continually using default snooze time to pause between each play
+## wae w				print this file on standard output including print newline, word, and byte count
 
 ## OPTIONS WHILE PLAYING:
 ## a[bort]		abort at end of current task
@@ -33,9 +34,9 @@ set -eu
 FLNM="${0##*/}"
 STMN=32
 STMX=512
-_SHWHLP_() { TMPCMD="$(sed -n '3,30p' "$0" | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "${FLNM^^} HELP $TMPCMD" ; }
+_SHWHLP_() { TMPCMD="$(sed -n '3,31p' "$0" | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "${FLNM^^} HELP $TMPCMD" ; }
 [ "${1:-}" != "" ] && { [[ "${1//-}" = [Cc] ]] || [[ "${1//-}" = [Cc][Aa] ]] || [[ "${1//-}" = [Cc][Aa][Tt] ]] ; } && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0" && exit
-[ "${1:-}" != "" ] && { [[ "${1//-}" = [Ww] ]] || [[ "${1//-}" = [Ww][Cc] ]] ; } && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0 && cat "$0" | wc;" && cat "$0" && cat "$0" | wc && exit
+[ "${1:-}" != "" ] && [[ "${1//-}" = [Ww] ]] && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0 && cat "$0" | wc;" && cat "$0" && cat "$0" | wc && exit
 [ "${1:-}" != "" ] && { [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] ; } && _SHWHLP_ && exit
 
 for TMPVRBL in "$@"
@@ -82,5 +83,5 @@ _STRTSRVC_(){
 TMPCMD="start service wake lock" && am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService > /dev/null && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
 }
 
-{ [[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '26p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit ; } || { _STRTSRVC_ && _PLYD_ ; }
+{ [[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '27p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit ; } || { _STRTSRVC_ && _PLYD_ ; }
 # wae.bash EF
