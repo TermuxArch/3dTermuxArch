@@ -32,9 +32,9 @@ set -eu
 FLNM="${0##*/}"
 STMN=32
 STMX=512
-[ "${1:-}" != "" ] && { { [[ "${1//-}" = [Cc] ]] || [[ "${1//-}" = [Cc][Aa] ]] || [[ "${1//-}" = [Cc][Aa][Tt] ]] || [[ "${1//-}" = [Vv] ]] || [[ "${1//-}" = [Vv][Ee] ]] || [[ "${1//-}" = [Vv][Ee][Rr] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii][Oo] ]] || [[ "${1//-}" = [Vv][Ee][Rr][Ss][Ii][Oo][Nn] ]] ; } && { printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0" ; exit ; } ; }
+{ [[ "${1//-}" = [Cc] ]] || [[ "${1//-}" = [Cc][Aa] ]] || [[ "${1//-}" = [Cc][Aa][Tt] ]] ; } && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0" && exit
 _SHWHLP_() { TMPCMD="$(sed -n '3,29p' "$0" | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "${FLNM^^} HELP $TMPCMD" ; }
-[ "${1:-}" != "" ] && { { [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] ; } && _SHWHLP_ && exit ; }
+{ [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] ; } && _SHWHLP_ && exit
 
 for TMPVRBL in "$@"
 do
@@ -51,7 +51,7 @@ play-audio "$TRCK" || printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FL
 }
 
 _DSLP_(){
-{ SHFNNT="$(shuf -n 1 -i "$FRSTNM"-"$SCNDNM")" && printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing for ${SHFNNT:-24} seconds after '${TRCK##*/}'..." && sleep "${SHFNNT:-24}" ; } || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE not snoozing for ${SHFNNT:-24} seconds after '${TRCK##*/}';  Snoozing for two seconds;  " && sleep 2 ; }
+{ SHFNNT="$(shuf -n 1 -i "$FRSTNM"-"$SCNDNM")" && printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing for ${SHFNNT:-24} seconds after playing '${TRCK##*/}'...  " && sleep "${SHFNNT:-24}" ; } || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FLNM^^} NOTICE not snoozing for ${SHFNNT:-24} seconds after playing '${TRCK##*/}';  Snoozing for two seconds...  " && sleep 2 ; }
 }
 
 _PLYD_(){
@@ -59,9 +59,9 @@ while :
 do
 for TRCK in "${SNGS[@]}"
 do
-{ _RDLN_ && [[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; } || { [[ $REPLY = [Ss] ]] && printf '\e[1;32m%s\e[0;32mCONTINUING...\e[0m\n' "  ${FLNM^^} NOTICE shuffling playlist;  " && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && printf '%s\n' "${SNGS[@]}" && IFS="$OIFS" && break ; }
+{ _RDLN_ && [[ $REPLY = [Bb] ]] && break ; } || { [[ $REPLY = [Ss] ]] && break ; }
 _DPLY_
-{ _RDLN_ && [[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && break ; } || { [[ $REPLY = [Ss] ]] && printf '\e[1;32m%s\e[0;32mCONTINUING...\e[0m\n' "  ${FLNM^^} NOTICE shuffling playlist;  " && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && printf '%s\n' "${SNGS[@]}" && IFS="$OIFS" && break ; }
+{ _RDLN_ && [[ $REPLY = [Bb] ]] && break ; } || { [[ $REPLY = [Ss] ]] && break ; }
 _DSLP_
 done
 done
@@ -71,7 +71,9 @@ _RDLN_(){
 OIFS="$IFS"
 read -n 1 -rs -t 0.01
 { { [[ $REPLY = [Aa] ]] || [[ $REPLY = [Ee] ]] || [[ $REPLY = [Qq] ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit ; }
-[[ $REPLY = [Hh] ]] && _SHWHLP_
+[[ $REPLY = [Bb] ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  "
+[[ $REPLY = [Hh] ]] && printf '  ' && _SHWHLP_
+[[ $REPLY = [Ss] ]] && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && IFS="$OIFS" && printf '\e[1;32m%s\n' "  ${FLNM^^} NOTICE shuffling playlist:" && printf '\e[0;32m%s\n' "${SNGS[@]}" && printf '\e[1;32mCONTINUING...\e[0m\n'
 }
 
 _STRTSRVC_(){
