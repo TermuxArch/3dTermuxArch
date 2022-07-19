@@ -62,21 +62,20 @@ while :
 do
 for TRCK in "${SNGS[@]}"
 do
-_RDLN_ && { [[ $REPLY = [Bb]* ]] || [[ $REPLY = [Ss]* ]] ; } && break
+{ _RDLN_ && { [[ $REPLY = [Bb]* ]] || [[ $REPLY = [Ss]* ]] ; } && break ; }
 _DPLY_
-_RDLN_ && { [[ $REPLY = [Bb]* ]] || [[ $REPLY = [Ss]* ]] ; } && break
+{ _RDLN_ && { [[ $REPLY = [Bb]* ]] || [[ $REPLY = [Ss]* ]] ; } && break ; }
 _DSLP_
 done
 done
 }
 
 _RDLN_(){
-OIFS="$IFS"
 read -n 999 -rs -t 0.01
 { [[ $REPLY = [Aa]* ]] || [[ $REPLY = [Ee]* ]] || [[ $REPLY = [Qq]* ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit
 [[ $REPLY = [Bb]* ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  "
 [[ $REPLY = [Hh]* ]] && printf '  ' && _SHWHLP_
-[[ $REPLY = [Ss]* ]] && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && IFS="$OIFS" && printf '\e[1;32m%s\n' "  ${FLNM^^} NOTICE shuffling playlist:" && printf '\e[0;32m%s\n' "${SNGS[@]}" && printf '\e[1;32mCONTINUING...\e[0m\n'
+[[ $REPLY = [Ss]* ]] && OIFS="$IFS" && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && IFS="$OIFS" && printf '\e[1;32m%s\n' "  ${FLNM^^} NOTICE shuffling playlist:" && printf '\e[0;32m%s\n' "${SNGS[@]}" && printf '\e[1;32mCONTINUING...\e[0m\n'
 }
 
 _STRTSRVC_(){
