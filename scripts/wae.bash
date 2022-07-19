@@ -11,7 +11,7 @@
 ## wae h[elp]			show the help screen
 ## wae *.mp3 path/*.mp3 8 32	play sound files and wait from eight to thirty two seconds between each play
 ## wae file.mp3			play one sound file continually using default snooze time to pause between each play
-## wae w				print this file on standard output including print newline, word, and byte count
+## wae w				print this file on standard output including newline, word, and byte counts
 
 ## OPTIONS WHILE PLAYING:
 ## a[bort]		abort at end of current task
@@ -36,7 +36,7 @@ STMN=32
 STMX=512
 _SHWHLP_() { TMPCMD="$(sed -n '3,31p' "$0" | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "${FLNM^^} HELP $TMPCMD" ; }
 [ "${1:-}" != "" ] && { [[ "${1//-}" = [Cc] ]] || [[ "${1//-}" = [Cc][Aa] ]] || [[ "${1//-}" = [Cc][Aa][Tt] ]] ; } && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0" && exit
-[ "${1:-}" != "" ] && [[ "${1//-}" = [Ww] ]] && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0 && cat "$0" | wc;" && cat "$0" && cat "$0" | wc && exit
+[ "${1:-}" != "" ] && [[ "${1//-}" = [Ww] ]] && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0 && wc $0;" && cat "$0" &&  wc "$0" && exit
 [ "${1:-}" != "" ] && { [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] ; } && _SHWHLP_ && exit
 
 for TMPVRBL in "$@"
@@ -62,9 +62,9 @@ while :
 do
 for TRCK in "${SNGS[@]}"
 do
-{ _RDLN_ && [[ $REPLY = [Bb]* ]] && break ; } || { [[ $REPLY = [Ss]* ]] && break ; }
+_RDLN_ && { [[ $REPLY = [Bb]* ]] || [[ $REPLY = [Ss]* ]] ; } && break
 _DPLY_
-{ _RDLN_ && [[ $REPLY = [Bb]* ]] && break ; } || { [[ $REPLY = [Ss]* ]] && break ; }
+_RDLN_ && { [[ $REPLY = [Bb]* ]] || [[ $REPLY = [Ss]* ]] ; } && break
 _DSLP_
 done
 done
@@ -73,7 +73,7 @@ done
 _RDLN_(){
 OIFS="$IFS"
 read -n 999 -rs -t 0.01
-{ { [[ $REPLY = [Aa]* ]] || [[ $REPLY = [Ee]* ]] || [[ $REPLY = [Qq]* ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit ; }
+{ [[ $REPLY = [Aa]* ]] || [[ $REPLY = [Ee]* ]] || [[ $REPLY = [Qq]* ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit
 [[ $REPLY = [Bb]* ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  "
 [[ $REPLY = [Hh]* ]] && printf '  ' && _SHWHLP_
 [[ $REPLY = [Ss]* ]] && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && IFS="$OIFS" && printf '\e[1;32m%s\n' "  ${FLNM^^} NOTICE shuffling playlist:" && printf '\e[0;32m%s\n' "${SNGS[@]}" && printf '\e[1;32mCONTINUING...\e[0m\n'
