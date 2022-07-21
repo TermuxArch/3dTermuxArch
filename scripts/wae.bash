@@ -79,13 +79,13 @@ done
 
 _RDLN_(){
 read -n 999 -rs -t 0.01
-{ [[ $REPLY = [Aa]* ]] || [[ $REPLY = [Ee]* ]] || [[ $REPLY = [Qq]* ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit
-[[ $REPLY = [Bb]* ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  "
-[[ $REPLY = [Cc]* ]] && printf '\e[0;32m%s\e[0;32m  CONTINUING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0"
+{ [[ $REPLY = [Aa]* ]] || [[ $REPLY = [Ee]* ]] || [[ $REPLY = [Qq]* ]] ; } && printf '\e[0;32m%s  \e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit
+[[ $REPLY = [Bb]* ]] && printf '\e[0;32m  %s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  "
+[[ $REPLY = [Cc]* ]] && printf '\e[0;32m  %s\e[0;32m  CONTINUING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0"
 [[ $REPLY = [Hh]* ]] && printf '  ' && _SHWHLP_
-[[ $REPLY = [Ll]* ]] && printf '\e[1;32m%s\n' "  ${FLNM^^} NOTICE listing playlist:" && printf '\e[0;32m%s\n' "${SNGS[@]}" && printf '\e[1;32mCONTINUING...\e[0m\n'
-[[ $REPLY = [Ss]* ]] && OIFS="$IFS" && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && IFS="$OIFS" && printf '\e[1;32m%s\n' "  ${FLNM^^} NOTICE shuffling playlist:" && printf '\e[0;32m%s\n' "${SNGS[@]}" && printf '\e[1;32mCONTINUING...\e[0m\n'
-[[ $REPLY = [Ww]* ]] && printf '\e[0;32m%s\e[0;32m  CONTINUING...\e[0m\n' "${FLNM^^} INFO wc $0;" && wc "$0"
+[[ $REPLY = [Ll]* ]] && printf '\e[1;32m  %s\n' "${FLNM^^} NOTICE listing playlist:" && printf '\e[0;32m%s\n' "${SNGS[@]}" && printf '\e[1;32mCONTINUING...\e[0m\n'
+[[ $REPLY = [Ss]* ]] && OIFS="$IFS" && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && IFS="$OIFS" && printf '\e[1;32m  %s\n' "${FLNM^^} NOTICE shuffling playlist:" && printf '\e[0;32m%s\n' "${SNGS[@]}" && printf '\e[1;32mCONTINUING...\e[0m\n'
+[[ $REPLY = [Ww]* ]] && printf '\e[0;32m  %s\e[0;32m  CONTINUING...\e[0m\n' "${FLNM^^} INFO wc $0;" && wc "$0"
 }
 
 _STRTSRVC_(){
