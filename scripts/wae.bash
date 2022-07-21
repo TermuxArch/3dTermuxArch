@@ -14,13 +14,15 @@
 ## OPTIONS WHILE PLAYING:
 ## a[bort]		abort at end of current task
 ## b[reak]		break at end of current task
+## c[at]		cat this file at end of current task
 ## CTRL+\		quit current task
 ## CTRL+C		quit wae session
 ## e[xit]		exit at end of current task
 ## h[elp]		print help at end of current task
 ## l[ist]		list playlist at end of current task
-## s[huffle]	shuffle playlist at end of current task
 ## q[uit]		quit at end of current task
+## s[huffle]	shuffle playlist at end of current task
+## w[c]		print newline, word, and byte counts for this file on standard output
 
 ## SYNTAX:
 ## wae audio_file[s] [audio files] [min snooze time] [max snooze time]
@@ -61,6 +63,11 @@ _DSLP_(){
 _PLYD_(){
 while :
 do
+_PLYN_
+done
+}
+
+_PLYN_(){
 for TRCK in "${SNGS[@]}"
 do
 { _RDLN_ && { [[ $REPLY = [Bb]* ]] || [[ $REPLY = [Ss]* ]] ; } && break ; }
@@ -68,21 +75,22 @@ _DPLY_
 { _RDLN_ && { [[ $REPLY = [Bb]* ]] || [[ $REPLY = [Ss]* ]] ; } && break ; }
 _DSLP_
 done
-done
 }
 
 _RDLN_(){
 read -n 999 -rs -t 0.01
 { [[ $REPLY = [Aa]* ]] || [[ $REPLY = [Ee]* ]] || [[ $REPLY = [Qq]* ]] ; } && printf '\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit
 [[ $REPLY = [Bb]* ]] && printf '\e[0;32m%s\e[0;33mBREAKING...\e[0m\n' "  ${FLNM^^} INFO keypress '$REPLY' was detected;  "
+[[ $REPLY = [Cc]* ]] && printf '\e[0;32m%s\e[0;32m  CONTINUING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0"
 [[ $REPLY = [Hh]* ]] && printf '  ' && _SHWHLP_
 [[ $REPLY = [Ll]* ]] && printf '\e[1;32m%s\n' "  ${FLNM^^} NOTICE listing playlist:" && printf '\e[0;32m%s\n' "${SNGS[@]}" && printf '\e[1;32mCONTINUING...\e[0m\n'
 [[ $REPLY = [Ss]* ]] && OIFS="$IFS" && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && IFS="$OIFS" && printf '\e[1;32m%s\n' "  ${FLNM^^} NOTICE shuffling playlist:" && printf '\e[0;32m%s\n' "${SNGS[@]}" && printf '\e[1;32mCONTINUING...\e[0m\n'
+[[ $REPLY = [Ww]* ]] && printf '\e[0;32m%s\e[0;32m  CONTINUING...\e[0m\n' "${FLNM^^} INFO wc $0;" && wc "$0"
 }
 
 _STRTSRVC_(){
 TMPCMD="start service wake lock" && am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService > /dev/null && printf '\e[0;32m%sCONTINUING...\e[0m\n' "${FLNM^^} INFO $TMPCMD;  " || printf '\e[0;33m%s\e[0;32mCONTINUING...\e[0m\n' "${FLNM^^} NOTICE $TMPCMD;  "
 }
 
-{ [[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '26p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit ; } || { _STRTSRVC_ && _PLYD_ ; }
+{ [[ -z "${SNGS:-}" ]] && TMPCMD="$(sed -n '28p' "$0" | sed 's/##\ //g')" && printf '\e[0;33m%s\e[0;32m%s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} NOTICE no file name was given;  " "$TMPCMD;  The command '$FLNM help' has more information;  " && exit ; } || { _STRTSRVC_ && _PLYD_ ; }
 # wae.bash EF
