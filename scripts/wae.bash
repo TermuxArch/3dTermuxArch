@@ -79,7 +79,7 @@ done
 
 _RDLN_(){
 read -n 999 -rs -t 0.01
-{ [[ $REPLY = [Aa]* ]] || [[ $REPLY = [Ee]* ]] || [[ $REPLY = [Qq]* ]] ; } && printf '\e[0;32m%s  \e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit
+{ [[ $REPLY = [Aa]* ]] || [[ $REPLY = [Ee]* ]] || [[ $REPLY = [Qq]* ]] ; } && printf '\e[0;32m  %s\e[0;31mEXITING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  " && exit
 [[ $REPLY = [Bb]* ]] && printf '\e[0;32m  %s\e[0;33mBREAKING...\e[0m\n' "${FLNM^^} INFO keypress '$REPLY' was detected;  "
 [[ $REPLY = [Cc]* ]] && printf '\e[0;32m  %s\e[0;32m  CONTINUING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0"
 [[ $REPLY = [Hh]* ]] && printf '  ' && _SHWHLP_
