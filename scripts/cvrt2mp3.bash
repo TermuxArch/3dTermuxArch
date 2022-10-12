@@ -4,8 +4,7 @@
 ################################################################################
 set -eu
 printf '%s\n' "${0##*/} begun"
-echo ${username2:-`whoami`}
-[ -x ${PREFIX:-/usr}/bin/ffmpeg ] || { pc ffmpeg || pci ffmpeg ; } || _PRNTMESG_ 200
+[ -x ${PREFIX:-/usr}/bin/ffmpeg ] || { au ffmpeg || pc ffmpeg || pci ffmpeg ; } || _PRNTMESG_ 200
 [ -n "${1:-}" ] || { printf '%s\n' "Please enter a file name;  Exiting..." ; exit 69 ; }
 if [ ! -d audio/stereo ] || [ ! -d audio/mono ] || [ ! -d audio/mono22050 ] || [ ! -d audio/mono11025 ]
 then
