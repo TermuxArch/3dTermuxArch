@@ -37,9 +37,11 @@ set -eu
 FLNM="${0##*/}"
 STMN=32
 STMX=512
-_SHWHLP_() { TMPCMD="$(sed -n '3,32p' "$0" | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "${FLNM^^} HELP $TMPCMD" ; }
 [ "${1:-}" != "" ] && { [[ "${1//-}" = [Cc] ]] || [[ "${1//-}" = [Cc][Aa] ]] || [[ "${1//-}" = [Cc][Aa][Tt] ]] ; } && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0" && exit
 [ "${1:-}" != "" ] && [[ "${1//-}" = [Ww] ]] && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0 && wc $0;" && cat "$0" &&  wc "$0" && exit
+_SHWHLP_() {
+TMPCMD="$(sed -n '3,32p' "$0" | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "${FLNM^^} HELP $TMPCMD"
+}
 [ "${1:-}" != "" ] && { [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] ; } && _SHWHLP_ && exit
 
 for TMPVRBL in "$@"
@@ -57,7 +59,7 @@ play-audio "$TRCK" || printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...\e[0m' "${FL
 }
 
 _DSLP_(){
-{ SHFNNT="$(shuf -n 1 -i "$FRSTNM"-"$SCNDNM")" && printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing for ${SHFNNT:-24} seconds after playing '${TRCK##*/}'...  " && sleep "${SHFNNT:-24}" ; } || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...  \e[0m' "${FLNM^^} NOTICE not snoozing for ${SHFNNT:-24} seconds after playing '${TRCK##*/}';  Snoozing for two seconds...  " && sleep 2 ; }
+{ SHFNNT="$(shuf -n 1 -i "$FRSTNM"-"$SCNDNM")" && printf '\e[2K\r\e[0;32m%s\e[0m' "${FLNM^^} INFO snoozing for ${SHFNNT:-24} seconds after playing '${TRCK##*/}'...  " && sleep "${SHFNNT:-24}" ; } || { printf '\e[2K\r\e[0;33m%s\e[0;32mCONTINUING...  \e[0m' "${FLNM^^} NOTICE not snoozing for ${SHFNNT:-24} seconds after playing '${TRCK##*/}';  Snoozing for six seconds...  " && sleep 6 ; }
 }
 
 _PLYD_(){
