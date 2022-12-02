@@ -27,7 +27,7 @@
 ## SYNTAX:
 ## wae audio_file[s] [audio files] [min snooze time] [max snooze time]
 
-## Variables STMN=32 and STMX=512 can be edited in order to set the default minimum and maximum snooze times.  Please see 'wae cat' for more information.
+## Variables STMN=32 and STMX=496 can be edited in order to set the default minimum and maximum snooze times.  Please see 'wae cat' for more information.
 
 ## Multiple sessions can be used in order to run commands 'wae arguments' simultaneously and to switch seamlessly between plays.
 
@@ -36,7 +36,7 @@
 set -eu
 FLNM="${0##*/}"
 STMN=32
-STMX=512
+STMX=496
 [ "${1:-}" != "" ] && { [[ "${1//-}" = [Cc] ]] || [[ "${1//-}" = [Cc][Aa] ]] || [[ "${1//-}" = [Cc][Aa][Tt] ]] ; } && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0" && exit
 [ "${1:-}" != "" ] && [[ "${1//-}" = [Ww] ]] && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0 && wc $0;" && cat "$0" &&  wc "$0" && exit
 _SHWHLP_() {
