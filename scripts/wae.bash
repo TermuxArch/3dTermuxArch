@@ -15,14 +15,14 @@
 ## a[bort]		abort at end of current task
 ## b[reak]		break at end of current task
 ## c[at]		cat this file at end of current task
-## CTRL+\		quit current task
-## CTRL+C		quit wae session
+## CTRL+\		quit current task immediately 
+## CTRL+C		quit wae session immediately 
 ## e[xit]		exit at end of current task
 ## h[elp]		print help at end of current task
 ## l[ist]		list playlist at end of current task
 ## q[uit]		quit at end of current task
 ## s[huffle]	shuffle playlist at end of current task
-## w[c]		print newline, word, and byte counts for this file on standard output
+## w[c]		print file, and print newline, word, and byte counts for this file on standard output at end of current task
 
 ## SYNTAX:
 ## wae audio_file[s] [audio files] [min snooze time] [max snooze time]
@@ -31,7 +31,7 @@
 
 ## Multiple sessions can be used in order to run commands 'wae arguments' simultaneously and to switch seamlessly between plays.
 
-## The command 'wait an event' is derived from the theories of grey music cognition and music as medicine.  Termux group discussions circa 2018 at Termux community channels were very helpful before the SDRausty account was banned by Termux curators doing the work of open source code squatters.  Please reference https://github.com/SDRausty/builtAPKs/issues/2 for more information about the topic of open source code squatting.
+## The command 'wait an event' is derived from the theories of gray music cognition and music as medicine.  Termux group discussions circa 2018 at Termux community channels were very helpful before the SDRausty account was banned by Termux curators doing the work of open source code squatters.  Please reference https://github.com/SDRausty/builtAPKs/issues/2 for more information about the topic of open source code squatting.
 ################################################################################
 set -eu
 FLNM="${0##*/}"
@@ -40,7 +40,7 @@ STMX=496
 [ "${1:-}" != "" ] && { [[ "${1//-}" = [Cc] ]] || [[ "${1//-}" = [Cc][Aa] ]] || [[ "${1//-}" = [Cc][Aa][Tt] ]] ; } && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0;" && cat "$0" && exit
 [ "${1:-}" != "" ] && [[ "${1//-}" = [Ww] ]] && printf '\e[0;32m%s\e[0;31m  EXITING...\e[0m\n' "${FLNM^^} INFO cat $0 && wc $0;" && cat "$0" &&  wc "$0" && exit
 _SHWHLP_() {
-TMPCMD="$(sed -n '3,32p' "$0" | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "${FLNM^^} HELP $TMPCMD"
+TMPCMD="$(sed -n '3,34p' "$0" | sed 's/##\ //g')" && printf '\e[0;32m%s\e[0m\n' "${FLNM^^} HELP $TMPCMD"
 }
 [ "${1:-}" != "" ] && { [[ "${1//-}" = [Hh] ]] || [[ "${1//-}" = [Hh][Ee] ]] || [[ "${1//-}" = [Hh][Ee][Ll] ]] || [[ "${1//-}" = [Hh][Ee][Ll][Pp] ]] ; } && _SHWHLP_ && exit
 
@@ -87,7 +87,7 @@ read -n 999 -rs -t 0.01
 [[ $REPLY = [Hh]* ]] && printf '  ' && _SHWHLP_
 [[ $REPLY = [Ll]* ]] && printf '\e[1;32m  %s\n' "${FLNM^^} NOTICE listing playlist:" && printf '\e[0;32m%s\n' "${SNGS[@]}" && printf '\e[1;32mCONTINUING...\e[0m\n'
 [[ $REPLY = [Ss]* ]] && OIFS="$IFS" && IFS=$'\n' && SNGS=( $(shuf -e "${SNGS[@]}") ) && IFS="$OIFS" && printf '\e[1;32m  %s\n' "${FLNM^^} NOTICE shuffling playlist:" && printf '\e[0;32m%s\n' "${SNGS[@]}" && printf '\e[1;32mCONTINUING...\e[0m\n'
-[[ $REPLY = [Ww]* ]] && printf '\e[0;32m  %s\e[0;32m  CONTINUING...\e[0m\n' "${FLNM^^} INFO wc $0;" && wc "$0"
+[[ $REPLY = [Ww]* ]] && printf '\e[0;32m  %s\e[0;32m  CONTINUING...\e[0m\n' "${FLNM^^} INFO wc $0;" && cat "$0" && wc "$0"
 }
 
 _STRTSRVC_(){
